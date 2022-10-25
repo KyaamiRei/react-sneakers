@@ -1,12 +1,153 @@
 function App() {
 	return (
 		<div className='wrapper clear'>
+			<div className='overlay'>
+				<div className='drawer'>
+					<h2 className='mb-20 d-flex justify-between'>
+						Корзина
+						<img
+							className='removeBtn cu-p'
+							src='/img/close_btn.svg'
+							alt='Remove'
+						/>
+					</h2>
+
+					<div className='items'>
+						<div className='cartItem d-flex align-center mb-20'>
+							<div
+								style={{ backgroundImage: "url(/img/sneakers/1.jpg)" }}
+								className='cartItemImg'
+							></div>
+							<div className='mr-20'>
+								<p className='mb-5'>Sneakers</p>
+								<b>12 997 руб.</b>
+							</div>
+							<img
+								className='removeBtn'
+								src='/img/close_btn.svg'
+								alt='Remove'
+							/>
+						</div>
+						<div className='cartItem d-flex align-center mb-20'>
+							<div
+								style={{ backgroundImage: "url(/img/sneakers/1.jpg)" }}
+								className='cartItemImg'
+							></div>
+							<div className='mr-20'>
+								<p className='mb-5'>Sneakers</p>
+								<b>12 997 руб.</b>
+							</div>
+							<img
+								className='removeBtn'
+								src='/img/close_btn.svg'
+								alt='Remove'
+							/>
+						</div>
+						<div className='cartItem d-flex align-center mb-20'>
+							<div
+								style={{ backgroundImage: "url(/img/sneakers/1.jpg)" }}
+								className='cartItemImg'
+							></div>
+							<div className='mr-20'>
+								<p className='mb-5'>Sneakers</p>
+								<b>12 997 руб.</b>
+							</div>
+							<img
+								className='removeBtn'
+								src='/img/close_btn.svg'
+								alt='Remove'
+							/>
+						</div>
+						<div className='cartItem d-flex align-center mb-20'>
+							<div
+								style={{ backgroundImage: "url(/img/sneakers/1.jpg)" }}
+								className='cartItemImg'
+							></div>
+							<div className='mr-20'>
+								<p className='mb-5'>Sneakers</p>
+								<b>12 997 руб.</b>
+							</div>
+							<img
+								className='removeBtn'
+								src='/img/close_btn.svg'
+								alt='Remove'
+							/>
+						</div>
+						<div className='cartItem d-flex align-center mb-20'>
+							<div
+								style={{ backgroundImage: "url(/img/sneakers/1.jpg)" }}
+								className='cartItemImg'
+							></div>
+							<div className='mr-20'>
+								<p className='mb-5'>Sneakers</p>
+								<b>12 997 руб.</b>
+							</div>
+							<img
+								className='removeBtn'
+								src='/img/close_btn.svg'
+								alt='Remove'
+							/>
+						</div>
+						<div className='cartItem d-flex align-center mb-20'>
+							<div
+								style={{ backgroundImage: "url(/img/sneakers/1.jpg)" }}
+								className='cartItemImg'
+							></div>
+							<div className='mr-20'>
+								<p className='mb-5'>Sneakers</p>
+								<b>12 997 руб.</b>
+							</div>
+							<img
+								className='removeBtn'
+								src='/img/close_btn.svg'
+								alt='Remove'
+							/>
+						</div>
+						<div className='cartItem d-flex align-center mb-20'>
+							<div
+								style={{ backgroundImage: "url(/img/sneakers/1.jpg)" }}
+								className='cartItemImg'
+							></div>
+							<div className='mr-20'>
+								<p className='mb-5'>Sneakers</p>
+								<b>12 997 руб.</b>
+							</div>
+							<img
+								className='removeBtn'
+								src='/img/close_btn.svg'
+								alt='Remove'
+							/>
+						</div>
+					</div>
+
+					<div className=''>
+						<div className='cartTotalBlock'>
+							<ul>
+								<li>
+									<span>Итого:</span>
+									<div></div>
+									<b>21 234 руб.</b>
+								</li>
+								<li>
+									<span>Налог 5%:</span>
+									<div></div>
+									<b> 1 232 руб.</b>
+								</li>
+							</ul>
+							<button className='greenButton'>
+								Оформить заказ <img src='/img/row.svg' alt='Next' />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<header className='d-flex justify-between align-center p-40'>
 				<div className='d-flex align-center'>
 					<img alt='logo' width={40} height={40} src='/img/logo.png' />
 					<div>
 						<h3 className='text-uppercase'>React Sneakers</h3>
-						<p className="opacity-5">Магазин кросовок</p>
+						<p className='opacity-5'>Магазин кросовок</p>
 					</div>
 				</div>
 
@@ -29,9 +170,18 @@ function App() {
 				</ul>
 			</header>
 			<div className='content p-40'>
-				<h1 className='mb-40'>Все кросcовки</h1>
+				<div className='d-flex align-center justify-between mb-40'>
+					<h1>Все кросcовки</h1>
+					<div className='search-block d-flex align-center'>
+						<img alt='favorite' width={18} height={18} src='/img/search.svg' />
+						<input placeholder='Поиск ...' />
+					</div>
+				</div>
 				<div className='d-flex'>
 					<div className='card'>
+						<div className='favorite'>
+							<img src='/img/heart_unlike.svg' alt='Unliked' />
+						</div>
 						<img
 							width={133}
 							height={112}
@@ -50,6 +200,9 @@ function App() {
 						</div>
 					</div>
 					<div className='card'>
+						<div className='favorite'>
+							<img src='/img/heart_like.svg' alt='Liked' />
+						</div>
 						<img
 							width={133}
 							height={112}
@@ -68,6 +221,9 @@ function App() {
 						</div>
 					</div>
 					<div className='card'>
+						<div className='favorite'>
+							<img src='/img/heart_in_favorite.svg' alt='Favorite' />
+						</div>
 						<img
 							width={133}
 							height={112}
