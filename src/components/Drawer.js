@@ -17,7 +17,7 @@ function Drawer() {
 					<CartItem />					
 				</div>
 
-				<div className=''>
+				<div>
 					<div className='cartTotalBlock'>
 						<ul>
 							<li>
