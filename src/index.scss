@@ -76,12 +76,12 @@ header {
 	display: flex;
 	flex-direction: column;
 	position: absolute;
-	width: 420;
 	height: 100%;
 	right: 0;
 	background: #ffffff;
 	box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
-	padding: 30px;
+	padding: 20px;
+	
 
 	h2 {
 		margin: 0;
@@ -91,6 +91,7 @@ header {
 		flex: 1;
 		overflow: auto;
 		margin-bottom: 30px;
+		width: 320px;
 	}
 }
 

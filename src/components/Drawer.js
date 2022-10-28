@@ -1,20 +1,27 @@
 import CartItem from "./CartItem";
 
-function Drawer() {
+function Drawer({ onClose, items = [] }) {
 	return (
-		<div style={{ display: "none" }} className='overlay'>
+		<div className='overlay'>
 			<div className='drawer'>
 				<h2 className='mb-20 d-flex justify-between'>
 					Корзина
 					<img
+						onClick={onClose}
 						className='removeBtn cu-p'
 						src='/img/close_btn.svg'
-						alt='Remove'
+						alt='Close'
 					/>
 				</h2>
 
 				<div className='items'>
-					<CartItem />					
+					{items.map((obj) => (
+						<CartItem
+							title={obj.title}
+							price={obj.price}
+							imgUrl={obj.imgUrl}
+						/>
+					))}
 				</div>
 
 				<div>
