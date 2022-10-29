@@ -1,57 +1,97 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import Card from "./components/Card";
+import axios from "axios";
+
+import Home from "./pages/Home";
+import Favorites from "./pages/Favorites";
+
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
 
+import apiUrl from "./config.json";
+
 function App() {
 	const [items, setItems] = useState([]);
+	const [searchValue, setSearchValue] = useState("");
 	const [cartItems, setCartItems] = useState([]);
+	const [favorites, setfavorites] = useState([]);
 	const [cartOpened, setCartOpened] = useState(false);
 
 	useEffect(() => {
-		fetch("https://6358eb4eff3d7bddb993ed07.mockapi.io/items")
-			.then((res) => {
-				return res.json();
-			})
-			.then((json) => {
-				setItems(json);
-			});
+		axios.get(apiUrl.API_URL + "/items").then((res) => {
+			setItems(res.data);
+		});
+		axios.get(apiUrl.API_URL + "/cart").then((res) => {
+			setCartItems(res.data);
+		});
+		axios.get(apiUrl.API_URL + "/favorites").then((res) => {
+			setfavorites(res.data);
+		});
 	}, []);
 
 	const onAddCart = (obj) => {
-		
+		axios.post(apiUrl.API_URL + "/cart", obj);
+
 		setCartItems((prev) => [...prev, obj]);
+	};
+
+	const onAddFavorites = async (obj) => {
+		try {
+			if (favorites.find((item) => item.id === obj.id)) {
+				axios.delete(apiUrl.API_URL + `/favorites/${obj.id}`);
+			} else {
+				const { data } = await axios.post(apiUrl.API_URL + "/favorites", obj);
+				setfavorites((prev) => [...prev, data]);
+			}
+		} catch (error) {
+			alert('Не удалось добавить в избранное')
+		}
+	};
+
+	const onChangeSearchInput = (event) => {
+		setSearchValue(event.target.value);
+	};
+
+	const onRemoveItem = (id) => {
+		axios.delete(apiUrl.API_URL + `/cart/${id}`);
+		setCartItems((prev) => prev.filter((item) => item.id !== id));
 	};
 
 	return (
 		<div className='wrapper clear'>
 			{cartOpened && (
-				<Drawer items={cartItems} onClose={() => setCartOpened(false)} />
+				<Drawer
+					items={cartItems}
+					onClose={() => setCartOpened(false)}
+					onRemove={onRemoveItem}
+				/>
 			)}
+
 			<Header onClickCart={() => setCartOpened(true)} />
-			<div className='content p-40'>
-				<div className='d-flex align-center justify-between mb-40'>
-					<h1>Все кросcовки</h1>
-					<div className='search-block d-flex align-center'>
-						<img alt='favorite' width={18} height={18} src='/img/search.svg' />
-						<input placeholder='Поиск ...' />
-					</div>
-				</div>
-				<div className='d-flex flex-wrap'>
-					{items.map((val) => (
-						<Card
-							title={val.title}
-							price={val.price}
-							imgUrl={val.imgUrl}
-							onFavorite={() => console.log(val)}
-							onAddCart={(obj) => {
-								onAddCart(obj);
-							}}
+
+			<Routes>
+				<Route
+					path='/'
+					element={
+						<Home
+							items={items}
+							searchValue={searchValue}
+							setSearchValue={setSearchValue}
+							onChangeSearchInput={onChangeSearchInput}
+							onAddFavorites={onAddFavorites}
+							onAddCart={onAddCart}
 						/>
-					))}
-				</div>
-			</div>
+					}
+				/>
+
+				<Route
+					path='/favorites'
+					element={
+						<Favorites items={favorites} onAddFavorites={onAddFavorites} />
+					}
+				/>
+			</Routes>
 		</div>
 	);
 }
