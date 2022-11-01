@@ -2,27 +2,23 @@ import Card from "../components/Card";
 
 function Home({
 	items,
-	cartItems,
 	searchValue,
 	setSearchValue,
 	onChangeSearchInput,
-	onAddFavorites,
+	onAddFavorite,
 	onAddCart,
 	isLoading,
 }) {
+
 	const renderItems = () => {
 		const filtredItems = items.filter((item) =>
-			item.title.toLowerCase().includes(searchValue.toLowerCase()),
+			item.title.toLowerCase().includes(searchValue.toLowerCase())
 		);
 
 		return (isLoading ? [...Array(10)] : filtredItems).map((item, index) => (
 			<Card
 				loading={isLoading}
 				key={index}
-				added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
-				onAddFavorite={(obj) => {
-					onAddFavorites(obj);
-				}}
 				onAddCart={(obj) => {
 					onAddCart(obj);
 				}}
