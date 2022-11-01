@@ -8,6 +8,8 @@ import Info from "./info";
 
 import apiUrl from "../config.json";
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 function Drawer({ items = [], onRemove }) {
 	const { cartItems, setCartOpened, setCartItems } = useContext(AppContext);
 	const [idOrder, setIdOrder] = useState(0);
@@ -20,12 +22,17 @@ function Drawer({ items = [], onRemove }) {
 			const { data } = await axios.post(apiUrl.API_URL + "/orders", {
 				items: cartItems,
 			});
-			await axios.put(apiUrl.API_URL + "/cart", []);
 			setIdOrder(data.id);
 			setIsOrder(true);
 			setCartItems([]);
+
+			for (let i = 0; i < cartItems.length; i++) {
+				const item = cartItems[i];
+				await axios.delete(apiUrl.API_URL + `/cart/${item.id}`);
+				await delay(1000);
+			}
 		} catch (error) {
-			alert("Не удалось сделать заказ");
+			alert("Не удалось сделать заказa");
 		}
 		setIsLoading(false);
 	};
@@ -84,7 +91,11 @@ function Drawer({ items = [], onRemove }) {
 										<b> 1 232 руб.</b>
 									</li>
 								</ul>
-								<button onClick={onClickOrder} className='greenButton'>
+								<button
+									disabled={isLoading}
+									onClick={onClickOrder}
+									className='greenButton'
+								>
 									Оформить заказ <img src='/img/row.svg' alt='Next' />
 								</button>
 							</div>
