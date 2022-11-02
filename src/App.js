@@ -55,7 +55,7 @@ function App() {
 					prev.filter((item) => Number(item.parentId) !== Number(obj.id))
 				);
 			} else {
-				const {data} = await axios.post(apiUrl.API_URL + "/cart", obj);
+				const { data } = await axios.post(apiUrl.API_URL + "/cart", obj);
 				setCartItems((prev) => [...prev, data]);
 			}
 		} catch (error) {}
