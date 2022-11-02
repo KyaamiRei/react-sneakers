@@ -53,8 +53,8 @@ function Card({
 							<img
 								src={
 									isFavorite
-										? "img/heart_in_favorite.svg"
-										: "img/heart_unlike.svg"
+										? "react-sneakers/img/heart_in_favorite.svg"
+										: "react-sneakers/img/heart_unlike.svg"
 								}
 								alt='Liked'
 							/>
@@ -71,7 +71,7 @@ function Card({
 							<img
 								className={styles.plus}
 								onClick={onClickAdd}
-								src={isItemAdded(id) ? "img/btn_added.svg" : "img/plus.svg"}
+								src={isItemAdded(id) ? "react-sneakers/img/btn_added.svg" : "react-sneakers/img/plus.svg"}
 								alt='plus'
 							/>
 						)}

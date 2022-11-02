@@ -34,14 +34,14 @@ function Home({
 					{searchValue ? `Поиск по запросу: "${searchValue}"` : "Все кросcовки"}
 				</h1>
 				<div className='search-block d-flex align-center'>
-					<img alt='Search' width={18} height={18} src='img/search.svg' />
+					<img alt='Search' width={18} height={18} src='react-sneakers/img/search.svg' />
 					{searchValue ? (
 						<img
 							onClick={() => {
 								setSearchValue("");
 							}}
 							className='clear cu-p'
-							src='img/close_btn.svg'
+							src='react-sneakers/img/close_btn.svg'
 							alt='Clear'
 						/>
 					) : null}
