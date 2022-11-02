@@ -1,18 +1,19 @@
 import { useContext, useState } from "react";
+import { useCart } from "../../hooks/useCart";
 
-import { AppContext } from "../App";
+import { AppContext } from "../../App";
 
 import axios from "axios";
 
-import Info from "./info";
+import Info from "../info";
 
-import { useCart } from "../hooks/useCart";
+import apiUrl from "../../config.json";
 
-import apiUrl from "../config.json";
+import styles from "./Drawer.module.scss";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function Drawer({ items = [], onRemove }) {
+function Drawer({ items = [], onRemove, opened }) {
 	const { cartItems, setCartItems, totalPrice } = useCart();
 	const { setCartOpened } = useContext(AppContext);
 	const [idOrder, setIdOrder] = useState(0);
@@ -41,8 +42,8 @@ function Drawer({ items = [], onRemove }) {
 	};
 
 	return (
-		<div className='overlay'>
-			<div className='drawer'>
+		<div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
+			<div className={styles.drawer}>
 				<h2 className='mb-20 d-flex justify-between'>
 					Корзина
 					<img
@@ -55,7 +56,7 @@ function Drawer({ items = [], onRemove }) {
 
 				{items.length > 0 ? (
 					<div className='d-flex flex-column flex'>
-						<div className='items'>
+						<div className='items flex'>
 							{items.map((obj) => (
 								<div
 									key={obj.id}

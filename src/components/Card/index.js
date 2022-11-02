@@ -18,14 +18,15 @@ function Card({
 	const { isItemAdded, onAddFavorites } = useContext(AppContext);
 
 	const [isFavorite, setIsFavorite] = useState(favorited);
+	const itemObj = { id, parentId: id, title, price, imgUrl };
 
 	const onClickAdd = () => {
-		onAddCart({ id, title, price, imgUrl });
+		onAddCart(itemObj);
 	};
 
 	const onClickFavorite = () => {
 		setIsFavorite(!isFavorite);
-		onAddFavorites({ id, title, price, imgUrl });
+		onAddFavorites(itemObj);
 	};
 
 	return (

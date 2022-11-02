@@ -24,31 +24,39 @@ function App() {
 
 	useEffect(() => {
 		async function fetchData() {
-			const cartItemResponce = await axios.get(apiUrl.API_URL + "/cart");
-			const favoriteItemResponce = await axios.get(
-				apiUrl.API_URL + "/favorites"
-			);
-			const itemResponce = await axios.get(apiUrl.API_URL + "/items");
+			try {
+				const [cartItemResponce, favoriteItemResponce, itemResponce] =
+					await Promise.all([
+						axios.get(apiUrl.API_URL + "/cart"),
+						axios.get(apiUrl.API_URL + "/favorites"),
+						axios.get(apiUrl.API_URL + "/items"),
+					]);
 
-			setCartItems(cartItemResponce.data);
-			setFavorites(favoriteItemResponce.data);
-			setItems(itemResponce.data);
-			setIsLoading(false);
+				setCartItems(cartItemResponce.data);
+				setFavorites(favoriteItemResponce.data);
+				setItems(itemResponce.data);
+				setIsLoading(false);
+			} catch (error) {
+				alert("Ошибка при запросе данных!");
+			}
 		}
 
 		fetchData();
 	}, []);
 
-	const onAddCart = (obj) => {
+	const onAddCart = async (obj) => {
 		try {
-			if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
-				axios.delete(apiUrl.API_URL + `/cart/${obj.id}`);
+			const findItem = cartItems.find(
+				(item) => Number(item.parentId) === Number(obj.id)
+			);
+			if (findItem) {
+				axios.delete(apiUrl.API_URL + `/cart/${findItem.id}`);
 				setCartItems((prev) =>
-					prev.filter((item) => Number(item.id) !== Number(obj.id))
+					prev.filter((item) => Number(item.parentId) !== Number(obj.id))
 				);
 			} else {
-				axios.post(apiUrl.API_URL + "/cart", obj);
-				setCartItems((prev) => [...prev, obj]);
+				const {data} = await axios.post(apiUrl.API_URL + "/cart", obj);
+				setCartItems((prev) => [...prev, data]);
 			}
 		} catch (error) {}
 	};
@@ -72,12 +80,18 @@ function App() {
 	};
 
 	const onRemoveItem = (id) => {
-		axios.delete(apiUrl.API_URL + `/cart/${id}`);
-		setCartItems((prev) => prev.filter((item) => item.id !== id));
+		try {
+			axios.delete(apiUrl.API_URL + `/cart/${id}`);
+			setCartItems((prev) =>
+				prev.filter((item) => Number(item.id) !== Number(id))
+			);
+		} catch (error) {
+			alert("Ошибка при оформлении заказа");
+		}
 	};
 
 	const isItemAdded = (id) => {
-		return cartItems.some((obj) => Number(obj.id) === Number(id));
+		return cartItems.some((obj) => Number(obj.parentId) === Number(id));
 	};
 
 	return (
@@ -94,7 +108,7 @@ function App() {
 			}}
 		>
 			<div className='wrapper clear'>
-				{cartOpened && <Drawer items={cartItems} onRemove={onRemoveItem} />}
+				<Drawer items={cartItems} onRemove={onRemoveItem} opened={cartOpened} />
 
 				<Header onClickCart={() => setCartOpened(true)} />
 
