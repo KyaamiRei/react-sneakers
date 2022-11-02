@@ -114,7 +114,7 @@ function App() {
 
 				<Routes>
 					<Route
-						path='/react-sneakers'
+						path=''
 						element={
 							<Home
 								items={items}
@@ -128,9 +128,9 @@ function App() {
 						}
 					/>
 
-					<Route path='/react-sneakers/favorites' element={<Favorites />} />
+					<Route path='favorites' element={<Favorites />} />
 
-					<Route path='/react-sneakers/orders' element={<Orders />} />
+					<Route path='orders' element={<Orders />} />
 				</Routes>
 			</div>
 		</AppContext.Provider>
