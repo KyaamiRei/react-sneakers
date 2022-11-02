@@ -5,6 +5,7 @@ import axios from "axios";
 
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
+import Orders from "./pages/Orders";
 
 import Drawer from "./components/Drawer";
 import Header from "./components/Header";
@@ -87,6 +88,7 @@ function App() {
 				items,
 				isItemAdded,
 				onAddFavorites,
+				onAddCart,
 				setCartOpened,
 				setCartItems,
 			}}
@@ -113,6 +115,8 @@ function App() {
 					/>
 
 					<Route path='/favorites' element={<Favorites />} />
+
+					<Route path='/orders' element={<Orders />} />
 				</Routes>
 			</div>
 		</AppContext.Provider>

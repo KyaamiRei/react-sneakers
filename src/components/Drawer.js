@@ -6,12 +6,15 @@ import axios from "axios";
 
 import Info from "./info";
 
+import { useCart } from "../hooks/useCart";
+
 import apiUrl from "../config.json";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function Drawer({ items = [], onRemove }) {
-	const { cartItems, setCartOpened, setCartItems } = useContext(AppContext);
+	const { cartItems, setCartItems, totalPrice } = useCart();
+	const { setCartOpened } = useContext(AppContext);
 	const [idOrder, setIdOrder] = useState(0);
 	const [isOrder, setIsOrder] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -83,12 +86,12 @@ function Drawer({ items = [], onRemove }) {
 									<li>
 										<span>Итого:</span>
 										<div></div>
-										<b>21 234 руб.</b>
+										<b>{totalPrice} руб.</b>
 									</li>
 									<li>
 										<span>Налог 5%:</span>
 										<div></div>
-										<b> 1 232 руб.</b>
+										<b>{(totalPrice * 5) / 100} руб.</b>
 									</li>
 								</ul>
 								<button
