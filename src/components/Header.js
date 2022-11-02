@@ -9,7 +9,7 @@ function Header(props) {
 		<header className='d-flex justify-between align-center p-40'>
 			<div className='d-flex align-center'>
 				<Link to='/'>
-					<img alt='logo' width={40} height={40} src='/img/logo.png' />
+					<img alt='logo' width={40} height={40} src='img/logo.png' />
 				</Link>
 
 				<div>
@@ -20,7 +20,7 @@ function Header(props) {
 
 			<ul className='d-flex'>
 				<li onClick={props.onClickCart} className='mr-30 cu-p'>
-					<img alt='cart' width={18} height={18} src='/img/cart.svg' />
+					<img alt='cart' width={18} height={18} src='img/cart.svg' />
 					<span>{totalPrice} руб.</span>
 				</li>
 				<li className='mr-30'>
@@ -29,13 +29,13 @@ function Header(props) {
 							alt='favorite'
 							width={18}
 							height={18}
-							src='/img/favorite.svg'
+							src='img/favorite.svg'
 						/>
 					</Link>
 				</li>
 				<li>
 					<Link to='/orders'>
-						<img alt='user' width={18} height={18} src='/img/user.svg' />
+						<img alt='user' width={18} height={18} src='img/user.svg' />
 					</Link>
 				</li>
 			</ul>
